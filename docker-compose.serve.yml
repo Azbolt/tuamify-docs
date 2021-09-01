@@ -1,0 +1,12 @@
+version: '3.6'
+services:
+  slate:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    ports:
+      - "4567:4567"
+    volumes:
+      - "./build:/srv/slate/build"
+      - "./source:/srv/slate/source"
+    command: serve

@@ -25,113 +25,144 @@ under the License.
 
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <% if current_page.data.key?('meta') %>
-      <% current_page.data.meta.each do |meta| %>
-        <meta
-          <% meta.each do |key, value| %>
-            <%= "#{key}=\"#{value}\"" %>
-          <% end %>
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <% if current_page.data.key?('meta') %>
+    <% current_page.data.meta.each do |meta| %>
+      <meta
+        <% meta.each do |key, value| %>
+        <%= "#{key}=\"#{value}\"" %>
+        <% end %>
         >
-      <% end %>
     <% end %>
-    <title><%= current_page.data.title || "API Documentation" %></title>
+  <% end %>
+  <title><%= current_page.data.title || "API Documentation" %></title>
 
-    <style media="screen">
-      <%= Rouge::Themes::MonokaiSublimeSlate.render(:scope => '.highlight') %>
-    </style>
-    <style media="print">
-      * {
-        transition:none!important;
-      }
-      <%= Rouge::Themes::Base16::Solarized.render(:scope => '.highlight') %>
-    </style>
-    <%= stylesheet_link_tag :screen, media: :screen %>
-    <%= stylesheet_link_tag :print, media: :print %>
-    <% if current_page.data.search %>
-      <%= javascript_include_tag  "all" %>
-    <% else %>
-      <%= javascript_include_tag  "all_nosearch" %>
-    <% end %>
+  <style media="screen">
+    <%= Rouge::Themes::MonokaiSublimeSlate.render(:scope => '.highlight') %>
+  </style>
+  <style media="print">
+    * {
+      transition: none !important;
+    }
 
-    <% if current_page.data.code_clipboard %>
+    <%= Rouge::Themes::Base16::Solarized.render(:scope => '.highlight') %>
+  </style>
+  <%= stylesheet_link_tag :screen, media: :screen %>
+  <%= stylesheet_link_tag :print, media: :print %>
+  <% if current_page.data.search %>
+    <%= javascript_include_tag "all" %>
+  <% else %>
+    <%= javascript_include_tag "all_nosearch" %>
+  <% end %>
+
+  <% if current_page.data.code_clipboard %>
     <script>
-      $(function() { setupCodeCopy(); });
+      $(function () {
+        setupCodeCopy();
+      });
     </script>
-    <% end %>
-  </head>
+  <% end %>
 
-  <body class="<%= page_classes %>" data-languages="<%=h language_tabs.map{ |lang| lang.is_a?(Hash) ? lang.keys.first : lang }.to_json %>">
-    <a href="#" id="nav-button">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet">
+</head>
+
+<body class="<%= page_classes %>" data-languages="<%= h language_tabs.map { |lang| lang.is_a?(Hash) ? lang.keys.first : lang }.to_json %>">
+<a href="#" id="nav-button">
       <span>
         NAV
         <%= image_tag('navbar.png') %>
       </span>
+</a>
+<div class="toc-wrapper">
+  <%= image_tag "logo.png", class: 'logo' %>
+  <% if language_tabs.any? %>
+    <div class="lang-selector">
+      <% language_tabs.each do |lang| %>
+        <% if lang.is_a? Hash %>
+          <a href="#" data-language-name="<%= lang.keys.first %>"><%= lang.values.first %></a>
+        <% else %>
+          <a href="#" data-language-name="<%= lang %>"><%= lang %></a>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  <% if current_page.data.back? %>
+    <a href="<%= current_page.data.back.link %>" style="text-decoration: none;">
+      <div style="text-transform: uppercase; color: rgb(127, 134, 139); font-size: 11px; font-weight: 500; cursor: pointer; flex: 0 0 auto; letter-spacing: 1px; padding-bottom: 5px; border-bottom: 1px solid rgba(146, 146, 146, 0.5); margin: 10px 25px 5px;">
+        <div style="display: flex; align-items: center;">
+          <i class="material-icons" style="font-size: 13px; margin-right: 4px;">arrow_back</i>
+          <span style="color: white;"><%= current_page.data.back.title %></span>
+        </div>
+      </div>
     </a>
-    <div class="toc-wrapper">
-      <%= image_tag "logo.png", class: 'logo' %>
-      <% if language_tabs.any? %>
-        <div class="lang-selector">
-          <% language_tabs.each do |lang| %>
-            <% if lang.is_a? Hash %>
-              <a href="#" data-language-name="<%= lang.keys.first %>"><%= lang.values.first %></a>
-            <% else %>
-              <a href="#" data-language-name="<%= lang %>"><%= lang %></a>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
-      <% if current_page.data.search %>
-        <div class="search">
-          <input type="text" class="search" id="input-search" placeholder="Search">
-        </div>
-        <ul class="search-results"></ul>
-      <% end %>
-      <ul id="toc" class="toc-list-h1">
-        <% toc_data(page_content).each do |h1| %>
-          <li>
-            <a href="#<%= h1[:id] %>" class="toc-h1 toc-link" data-title="<%= h1[:title] %>"><%= h1[:content] %></a>
-            <% if h1[:children].length > 0 %>
-              <ul class="toc-list-h2">
-                <% h1[:children].each do |h2| %>
-                  <li>
-                    <a href="#<%= h2[:id] %>" class="toc-h2 toc-link" data-title="<%= h2[:title] %>"><%= h2[:content] %></a>
-                  </li>
-                <% end %>
-              </ul>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-      <% if current_page.data.toc_footers %>
-        <ul class="toc-footer">
-          <% current_page.data.toc_footers.each do |footer| %>
-            <li><%= footer %></li>
-          <% end %>
-        </ul>
-      <% end %>
+  <% end %>
+  <% if current_page.data.toc_title? %>
+    <div style="display: flex; flex: 0 0 auto; align-items: center; margin: 15px 25px 10px;">
+      <div style="border: 1px solid rgb(77, 198, 231); display: flex; align-items: center; justify-content: center; height: 33px; width: 33px;">
+        <i class="material-icons" style="font-size: 20px; color: rgb(77, 198, 231);">library_books</i></div>
+      <span style="color: rgb(255, 255, 255); font-size: 18px; font-weight: 500; margin-left: 10px;"><%= current_page.data.toc_title %></span>
     </div>
-    <div class="page-wrapper">
-      <div class="dark-box"></div>
-      <div class="content">
-        <%= page_content %>
-      </div>
-      <div class="dark-box">
-        <% if language_tabs.any? %>
-          <div class="lang-selector">
-            <% language_tabs.each do |lang| %>
-              <% if lang.is_a? Hash %>
-                <a href="#" data-language-name="<%= lang.keys.first %>"><%= lang.values.first %></a>
-              <% else %>
-                <a href="#" data-language-name="<%= lang %>"><%= lang %></a>
+  <% end %>
+  <% if current_page.data.search %>
+    <div class="search">
+      <input type="text" class="search" id="input-search" placeholder="Search">
+    </div>
+    <ul class="search-results"></ul>
+  <% end %>
+  <ul id="toc" class="toc-list-h1">
+    <% if current_page.data.toc? && current_page.data.toc.length > 0 %>
+      <% current_page.data.toc.each do |value| %>
+        <li>
+          <a href="#<%= value[:link] %>" class="toc-h1 toc-link" data-title="<%= value[:title] %>"><%= value[:title] %></a>
+        </li>
+      <% end %>
+    <% else %>
+      <% toc_data(page_content).each do |h1| %>
+        <li>
+          <a href="#<%= h1[:id] %>" class="toc-h1 toc-link" data-title="<%= h1[:title] %>"><%= h1[:content] %></a>
+          <% if h1[:children].length > 0 %>
+            <ul class="toc-list-h2">
+              <% h1[:children].each do |h2| %>
+                <li>
+                  <a href="#<%= h2[:id] %>" class="toc-h2 toc-link" data-title="<%= h2[:title] %>"><%= h2[:content] %></a>
+                </li>
               <% end %>
-            <% end %>
-          </div>
+            </ul>
+          <% end %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+  <% if current_page.data.toc_footers %>
+    <ul class="toc-footer">
+      <% current_page.data.toc_footers.each do |footer| %>
+        <li><%= footer %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+<div class="page-wrapper">
+  <div class="dark-box"></div>
+  <div class="content">
+    <%= page_content %>
+  </div>
+  <div class="dark-box">
+    <% if language_tabs.any? %>
+      <div class="lang-selector">
+        <% language_tabs.each do |lang| %>
+          <% if lang.is_a? Hash %>
+            <a href="#" data-language-name="<%= lang.keys.first %>"><%= lang.values.first %></a>
+          <% else %>
+            <a href="#" data-language-name="<%= lang %>"><%= lang %></a>
+          <% end %>
         <% end %>
       </div>
-    </div>
-  </body>
+    <% end %>
+  </div>
+</div>
+</body>
 </html>

@@ -1,245 +1,234 @@
 ---
-title: API Reference
+title: Lahem Documentation Reference
 
-language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
-  - javascript
+toc_title: API Docs
+
+language_tabs:
+  - graphql
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
-
-includes:
-  - errors
+  - <a href='https://github.com/Azbolt/tuamify-docs'>Documentation hosted at GitHub</a>
 
 search: true
 
 code_clipboard: true
 
-meta:
-  - name: description
-    content: Documentation for the Kittn API
+meta: 
+  - name: description 
+  - content: Documentation for Lahem
+
 ---
 
-# Introduction
-
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
-
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
-
-# Authentication
-
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
+# User
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+  Please view <a href="https://www.notion.so/tuamify/User-cbb56104560445e699584e2492b0f520" target="_blank">User model</a> in data dictionary.
 </aside>
 
-# Kittens
+## Permissions
 
-## Get All Kittens
+Role|insert|select|update|delete
+----|------|------|------|------
+admin|Yes|Yes|Yes|Yes
+owner|No|Only users belonging to same restaurant|No|No
+user|No|Only own user record|Can only update `password` and `name` columns|No
+anon|Yes|No|No|No
 
-```ruby
-require 'kittn'
+## Create a user
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+```graphql
+mutation insertUserOne($email: String = "", $name: String = "", $password: String = "", $phone_number: String = "", $restaurant_id: uuid = "") {
+  UserCreate(password: $password, phone_number: $phone_number, restaurant_id: $restaurant_id, email: $email, name: $name) {
+    id
+    message
   }
-]
+}
 ```
 
-This endpoint retrieves all kittens.
+Creates a new user. All parameters are required.
 
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+<aside class="notice">
+  Insert permissions apply.
 </aside>
 
-## Get a Specific Kitten
+## Get users by restaurant
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+```graphql
+query getUsersByRestaurant($_eq: uuid = "") {
+  tuamify_User(where: {restaurant_id: {_eq: $_eq}}) {
+    restaurant_id
+    phone_number
+    name
+    id
+    is_admin
+    email
+    created_at
+  }
 }
 ```
 
-This endpoint retrieves a specific kitten.
+Returns a list of users belonging to the restaurant with given id.
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<aside class="notice">
+  Select permissions apply.
+</aside>
 
-### HTTP Request
+## Return user by Id
 
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
+```graphql
+query getUserById($id: uuid = "") {
+  tuamify_User_by_pk(id: $id) {
+    created_at
+    email
+    restaurant_id
+    phone_number
+    name
+    is_admin
+    id
+  }
 }
 ```
 
-This endpoint deletes a specific kitten.
+Returns a user object with given id.
 
-### HTTP Request
+<aside class="notice">
+  Select permissions apply.
+</aside>
 
-`DELETE http://example.com/kittens/<ID>`
+# Address
 
-### URL Parameters
+<aside class="notice">
+  Please view <a href="https://www.notion.so/tuamify/Address-6a03a692dd67427787a8d3dded69bd1a" target="_blank">Address model</a> in data dictionary.
+</aside>
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+## Permissions
+
+Role|insert|select|update|delete
+----|------|------|------|------
+admin|Yes|Yes|Yes|Yes
+owner|No|Only addresses of the users belonging to same restaurant|Can only update `name`, `longitude`, `latitude` and `street_address` columns of addresses of the users belonging to same restaurant|No
+user|No|Only addresses belonging to own user record|Can only update `name`, `default`, `longitude`, `latitude` and `street_address` columns of addresses belonging to own user record|Only addresses belonging to own user record
+anon|No|No|No|No
+
+## Create an address
+
+```graphql
+mutation insertAddressOne($set: tuamify_Address_insert_input!) {
+  insert_tuamify_Address_one(object: $set) {
+    default
+    id
+    latitude
+    longitude
+    name
+    street_address
+    user_id
+  }
+}
+```
+
+Creates a new address. Please view data dictionary to see required fields.
+
+<aside class="notice">Insert permissions apply.</aside>
+
+## Update an address
+
+## Delete an address
+
+```graphql
+mutation deleteAddressById($id: uuid = "") {
+  delete_tuamify_Address_by_pk(id: $id) {
+    default
+    id
+    latitude
+    longitude
+    name
+    user_id
+    street_address
+  }
+}
+```
+
+Deletes an address with given id.
+
+<aside class="notice">Delete permissions apply</aside>
+
+## Get address by user id
+
+```graphql
+query getAddressByUserId($user_id: uuid = "") {
+  tuamify_Address(where: {user_id: {_eq: $user_id}}) {
+    default
+    latitude
+    id
+    longitude
+    name
+    street_address
+    user_id
+  }
+}
+```
+
+Returns a list of addresses belonging to user with given id.
+
+<aside class="notice">Select permissions apply</aside>
+
+# Menu Category
+
+<aside class="notice">
+  Please view <a href="https://www.notion.so/tuamify/MenuCategory-e1aac987a24044cfa08ca9892ba3b8fa" target="_blank">Menu Category model</a> in data dictionary.
+</aside>
+
+## Permissions
+
+Role|insert|select|update|delete
+----|------|------|------|------
+admin|Yes|Yes|Yes|Yes
+owner|Can only insert `name` column|Only menu categories belonging to same restaurant|Can only update `name` column of menu categories belonging to same restaurant|Only menu categories belonging to same restaurant
+user|No|Only menu categories belonging to same restaurant|No|No
+anon|No|Yes|No|No
+
+## Create a menu category
+
+## Update a menu category
+
+## Delete a menu category
+
+## Subscribe to whole menu by restaurant id
+
+```graphql
+subscription subscribeMenuByRestaurantId {
+  tuamify_MenuCategory {
+    id
+    name
+    MenuItems {
+      price
+      photo
+      name
+      menu_category_id
+      id
+      description
+      MenuItemVariationGroups {
+        required
+        menu_item_id
+        name
+        allow_multiple_selection
+        id
+        MenuItemVariations {
+          price
+          name
+          menu_item_variation_group_id
+          id
+          description
+        }
+      }
+    }
+    restaurant_id
+  }
+}
+```
+
+Returns a list of menu categories belonging to restaurant with given id. Each menu category has nested menu items. Each
+menu item has nested menu item variation groups. Each menu item variation group has nested menu item variations.
+
+<aside class="notice">Select permissions apply.</aside>
 
