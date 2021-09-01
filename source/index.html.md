@@ -232,3 +232,76 @@ menu item has nested menu item variation groups. Each menu item variation group 
 
 <aside class="notice">Select permissions apply.</aside>
 
+# Menu Item
+
+## Permissions
+
+## Create a menu item
+
+## Update a menu item
+
+## Delete a menu item
+
+# Menu Item Variation Group
+
+## Permissions
+
+## Create a menu item variation group
+
+## Update a menu item variation group
+
+## Delete a menu item variation group
+
+# Menu Item Variation
+
+## Permissions
+
+## Create a menu item variation
+
+## Update a menu item variation
+
+## Delete a menu item variation
+
+# Cart
+
+## Permissions
+
+## Subscribe to active cart by user
+
+## Create a cart
+
+## Update a cart
+
+## Delete a cart
+
+# Cart Menu Item
+
+## Permissions
+
+## Create a cart menu item
+
+## Update a cart menu item
+
+## Delete a cart menu item
+
+# Cart Menu Item Variation
+
+## Permissions
+
+## Create a cart menu item variation
+
+## Update a cart menu item variation
+
+## Delete a cart menu item variation
+
+# Order
+
+## Permissions
+
+## Create an order
+
+## Update an order
+
+## Get orders by user
+
+## Get orders by restaurant
