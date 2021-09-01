@@ -1,18 +1,20 @@
 
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta
-            name="description"
-            content="Documentation for the Kittn API"
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <meta
+        name="description"
         >
-    <title>API Reference</title>
+      <meta
+        content="Documentation for Lahem"
+        >
+  <title>Lahem Documentation Reference</title>
 
-    <style media="screen">
-      .highlight table td { padding: 5px; }
+  <style media="screen">
+    .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
 .highlight .gh {
   color: #999999;
@@ -199,13 +201,14 @@
 .highlight .o {
   color: #f92672;
 }
-    </style>
-    <style media="print">
-      * {
-        -webkit-transition:none!important;
-        transition:none!important;
-      }
-      .highlight table td { padding: 5px; }
+  </style>
+  <style media="print">
+    * {
+      -webkit-transition: none !important;
+      transition: none !important;
+    }
+
+    .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
 .highlight, .highlight .w {
   color: #586e75;
@@ -285,315 +288,494 @@
 .highlight .ss {
   color: #859900;
 }
-    </style>
-    <link href="stylesheets/screen-c9d8fa83.css" rel="stylesheet" media="screen" />
-    <link href="stylesheets/print-953e3353.css" rel="stylesheet" media="print" />
-      <script src="javascripts/all-b12a2749.js"></script>
+  </style>
+  <link href="stylesheets/screen-c9d8fa83.css" rel="stylesheet" media="screen" />
+  <link href="stylesheets/print-953e3353.css" rel="stylesheet" media="print" />
+    <script src="javascripts/all-b12a2749.js"></script>
 
     <script>
-      $(function() { setupCodeCopy(); });
+      $(function () {
+        setupCodeCopy();
+      });
     </script>
-  </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
-    <a href="#" id="nav-button">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet">
+</head>
+
+<body class="index" data-languages="[&quot;graphql&quot;]">
+<a href="#" id="nav-button">
       <span>
         NAV
         <img src="images/navbar-cad8cdcb.png" alt="" />
       </span>
-    </a>
-    <div class="toc-wrapper">
-      <img src="images/logo-1e815a84.png" class="logo" alt="" />
-        <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
-        </div>
-        <div class="search">
-          <input type="text" class="search" id="input-search" placeholder="Search">
-        </div>
-        <ul class="search-results"></ul>
-      <ul id="toc" class="toc-list-h1">
-          <li>
-            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
-          </li>
-          <li>
-            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
-          </li>
-          <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
-                  </li>
-                  <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
-                  </li>
-                  <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
-          </li>
-      </ul>
-        <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a></li>
-        </ul>
+</a>
+<div class="toc-wrapper">
+  <img src="images/logo-7ec2b0a4.png" class="logo" alt="" />
+    <div class="lang-selector">
+          <a href="#" data-language-name="graphql">graphql</a>
     </div>
-    <div class="page-wrapper">
-      <div class="dark-box"></div>
-      <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
-
-<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p>This example API documentation page was created with <a href="https://github.com/slatedocs/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-</code></pre></div>
-<blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code>Authorization: meowmeowmeow</code></p>
-
+    <div style="display: flex; flex: 0 0 auto; align-items: center; margin: 15px 25px 10px;">
+      <div style="border: 1px solid rgb(77, 198, 231); display: flex; align-items: center; justify-content: center; height: 33px; width: 33px;">
+        <i class="material-icons" style="font-size: 20px; color: rgb(77, 198, 231);">library_books</i></div>
+      <span style="color: rgb(255, 255, 255); font-size: 18px; font-weight: 500; margin-left: 10px;">API Docs</span>
+    </div>
+    <div class="search">
+      <input type="text" class="search" id="input-search" placeholder="Search">
+    </div>
+    <ul class="search-results"></ul>
+  <ul id="toc" class="toc-list-h1">
+        <li>
+          <a href="#user" class="toc-h1 toc-link" data-title="User">User</a>
+            <ul class="toc-list-h2">
+                <li>
+                  <a href="#permissions" class="toc-h2 toc-link" data-title="Permissions">Permissions</a>
+                </li>
+                <li>
+                  <a href="#create-a-user" class="toc-h2 toc-link" data-title="Create a user">Create a user</a>
+                </li>
+                <li>
+                  <a href="#get-users-by-restaurant" class="toc-h2 toc-link" data-title="Get users by restaurant">Get users by restaurant</a>
+                </li>
+                <li>
+                  <a href="#return-user-by-id" class="toc-h2 toc-link" data-title="Return user by Id">Return user by Id</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+          <a href="#address" class="toc-h1 toc-link" data-title="Address">Address</a>
+            <ul class="toc-list-h2">
+                <li>
+                  <a href="#permissions-2" class="toc-h2 toc-link" data-title="Permissions">Permissions</a>
+                </li>
+                <li>
+                  <a href="#create-an-address" class="toc-h2 toc-link" data-title="Create an address">Create an address</a>
+                </li>
+                <li>
+                  <a href="#update-an-address" class="toc-h2 toc-link" data-title="Update an address">Update an address</a>
+                </li>
+                <li>
+                  <a href="#delete-an-address" class="toc-h2 toc-link" data-title="Delete an address">Delete an address</a>
+                </li>
+                <li>
+                  <a href="#get-address-by-user-id" class="toc-h2 toc-link" data-title="Get address by user id">Get address by user id</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+          <a href="#menu-category" class="toc-h1 toc-link" data-title="Menu Category">Menu Category</a>
+            <ul class="toc-list-h2">
+                <li>
+                  <a href="#permissions-3" class="toc-h2 toc-link" data-title="Permissions">Permissions</a>
+                </li>
+                <li>
+                  <a href="#create-a-menu-category" class="toc-h2 toc-link" data-title="Create a menu category">Create a menu category</a>
+                </li>
+                <li>
+                  <a href="#update-a-menu-category" class="toc-h2 toc-link" data-title="Update a menu category">Update a menu category</a>
+                </li>
+                <li>
+                  <a href="#delete-a-menu-category" class="toc-h2 toc-link" data-title="Delete a menu category">Delete a menu category</a>
+                </li>
+                <li>
+                  <a href="#subscribe-to-whole-menu-by-restaurant-id" class="toc-h2 toc-link" data-title="Subscribe to whole menu by restaurant id">Subscribe to whole menu by restaurant id</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+          <a href="#menu-item" class="toc-h1 toc-link" data-title="Menu Item">Menu Item</a>
+            <ul class="toc-list-h2">
+                <li>
+                  <a href="#permissions-4" class="toc-h2 toc-link" data-title="Permissions">Permissions</a>
+                </li>
+                <li>
+                  <a href="#create-a-menu-item" class="toc-h2 toc-link" data-title="Create a menu item">Create a menu item</a>
+                </li>
+                <li>
+                  <a href="#update-a-menu-item" class="toc-h2 toc-link" data-title="Update a menu item">Update a menu item</a>
+                </li>
+                <li>
+                  <a href="#delete-a-menu-item" class="toc-h2 toc-link" data-title="Delete a menu item">Delete a menu item</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+          <a href="#menu-item-variation-group" class="toc-h1 toc-link" data-title="Menu Item Variation Group">Menu Item Variation Group</a>
+            <ul class="toc-list-h2">
+                <li>
+                  <a href="#permissions-5" class="toc-h2 toc-link" data-title="Permissions">Permissions</a>
+                </li>
+                <li>
+                  <a href="#create-a-menu-item-variation-group" class="toc-h2 toc-link" data-title="Create a menu item variation group">Create a menu item variation group</a>
+                </li>
+                <li>
+                  <a href="#update-a-menu-item-variation-group" class="toc-h2 toc-link" data-title="Update a menu item variation group">Update a menu item variation group</a>
+                </li>
+                <li>
+                  <a href="#delete-a-menu-item-variation-group" class="toc-h2 toc-link" data-title="Delete a menu item variation group">Delete a menu item variation group</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+          <a href="#menu-item-variation" class="toc-h1 toc-link" data-title="Menu Item Variation">Menu Item Variation</a>
+            <ul class="toc-list-h2">
+                <li>
+                  <a href="#permissions-6" class="toc-h2 toc-link" data-title="Permissions">Permissions</a>
+                </li>
+                <li>
+                  <a href="#create-a-menu-item-variation" class="toc-h2 toc-link" data-title="Create a menu item variation">Create a menu item variation</a>
+                </li>
+                <li>
+                  <a href="#update-a-menu-item-variation" class="toc-h2 toc-link" data-title="Update a menu item variation">Update a menu item variation</a>
+                </li>
+                <li>
+                  <a href="#delete-a-menu-item-variation" class="toc-h2 toc-link" data-title="Delete a menu item variation">Delete a menu item variation</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+          <a href="#cart" class="toc-h1 toc-link" data-title="Cart">Cart</a>
+            <ul class="toc-list-h2">
+                <li>
+                  <a href="#permissions-7" class="toc-h2 toc-link" data-title="Permissions">Permissions</a>
+                </li>
+                <li>
+                  <a href="#subscribe-to-active-cart-by-user" class="toc-h2 toc-link" data-title="Subscribe to active cart by user">Subscribe to active cart by user</a>
+                </li>
+                <li>
+                  <a href="#create-a-cart" class="toc-h2 toc-link" data-title="Create a cart">Create a cart</a>
+                </li>
+                <li>
+                  <a href="#update-a-cart" class="toc-h2 toc-link" data-title="Update a cart">Update a cart</a>
+                </li>
+                <li>
+                  <a href="#delete-a-cart" class="toc-h2 toc-link" data-title="Delete a cart">Delete a cart</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+          <a href="#cart-menu-item" class="toc-h1 toc-link" data-title="Cart Menu Item">Cart Menu Item</a>
+            <ul class="toc-list-h2">
+                <li>
+                  <a href="#permissions-8" class="toc-h2 toc-link" data-title="Permissions">Permissions</a>
+                </li>
+                <li>
+                  <a href="#create-a-cart-menu-item" class="toc-h2 toc-link" data-title="Create a cart menu item">Create a cart menu item</a>
+                </li>
+                <li>
+                  <a href="#update-a-cart-menu-item" class="toc-h2 toc-link" data-title="Update a cart menu item">Update a cart menu item</a>
+                </li>
+                <li>
+                  <a href="#delete-a-cart-menu-item" class="toc-h2 toc-link" data-title="Delete a cart menu item">Delete a cart menu item</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+          <a href="#cart-menu-item-variation" class="toc-h1 toc-link" data-title="Cart Menu Item Variation">Cart Menu Item Variation</a>
+            <ul class="toc-list-h2">
+                <li>
+                  <a href="#permissions-9" class="toc-h2 toc-link" data-title="Permissions">Permissions</a>
+                </li>
+                <li>
+                  <a href="#create-a-cart-menu-item-variation" class="toc-h2 toc-link" data-title="Create a cart menu item variation">Create a cart menu item variation</a>
+                </li>
+                <li>
+                  <a href="#update-a-cart-menu-item-variation" class="toc-h2 toc-link" data-title="Update a cart menu item variation">Update a cart menu item variation</a>
+                </li>
+                <li>
+                  <a href="#delete-a-cart-menu-item-variation" class="toc-h2 toc-link" data-title="Delete a cart menu item variation">Delete a cart menu item variation</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+          <a href="#order" class="toc-h1 toc-link" data-title="Order">Order</a>
+            <ul class="toc-list-h2">
+                <li>
+                  <a href="#permissions-10" class="toc-h2 toc-link" data-title="Permissions">Permissions</a>
+                </li>
+                <li>
+                  <a href="#create-an-order" class="toc-h2 toc-link" data-title="Create an order">Create an order</a>
+                </li>
+                <li>
+                  <a href="#update-an-order" class="toc-h2 toc-link" data-title="Update an order">Update an order</a>
+                </li>
+                <li>
+                  <a href="#get-orders-by-user" class="toc-h2 toc-link" data-title="Get orders by user">Get orders by user</a>
+                </li>
+                <li>
+                  <a href="#get-orders-by-restaurant" class="toc-h2 toc-link" data-title="Get orders by restaurant">Get orders by restaurant</a>
+                </li>
+            </ul>
+        </li>
+  </ul>
+    <ul class="toc-footer">
+        <li><a href='https://github.com/Azbolt/tuamify-docs'>Documentation hosted at GitHub</a></li>
+    </ul>
+</div>
+<div class="page-wrapper">
+  <div class="dark-box"></div>
+  <div class="content">
+    <h1 id='user'>User</h1>
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+  Please view <a href="https://www.notion.so/tuamify/User-cbb56104560445e699584e2492b0f520" target="_blank">User model</a> in data dictionary.
 </aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">();</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+<h2 id='permissions'>Permissions</h2>
+<table><thead>
+<tr>
+<th>Role</th>
+<th>insert</th>
+<th>select</th>
+<th>update</th>
+<th>delete</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>admin</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>owner</td>
+<td>No</td>
+<td>Only users belonging to same restaurant</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>user</td>
+<td>No</td>
+<td>Only own user record</td>
+<td>Can only update <code>password</code> and <code>name</code> columns</td>
+<td>No</td>
+</tr>
+<tr>
+<td>anon</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody></table>
+<h2 id='create-a-user'>Create a user</h2><div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">insertUserOne</span><span class="p">(</span><span class="nv">$email</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nv">$name</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nv">$password</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nv">$phone_number</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nv">$restaurant_id</span><span class="p">:</span><span class="w"> </span><span class="n">uuid</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">""</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">UserCreate</span><span class="p">(</span><span class="n">password</span><span class="p">:</span><span class="w"> </span><span class="nv">$password</span><span class="p">,</span><span class="w"> </span><span class="n">phone_number</span><span class="p">:</span><span class="w"> </span><span class="nv">$phone_number</span><span class="p">,</span><span class="w"> </span><span class="n">restaurant_id</span><span class="p">:</span><span class="w"> </span><span class="nv">$restaurant_id</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">:</span><span class="w"> </span><span class="nv">$email</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="nv">$name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">id</span><span class="w">
+    </span><span class="n">message</span><span class="w">
   </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody></table>
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint retrieves a specific kitten.</p>
+<p>Creates a new user. All parameters are required.</p>
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
-</tr>
-</tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="n">kittens</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span> <span class="se">\</span>
-  <span class="nt">-X</span> DELETE <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
-</tr>
-</tbody></table>
-<h1 id='errors'>Errors</h1>
 <aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
+  Insert permissions apply.
 </aside>
+<h2 id='get-users-by-restaurant'>Get users by restaurant</h2><div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">query</span><span class="w"> </span><span class="n">getUsersByRestaurant</span><span class="p">(</span><span class="nv">$_eq</span><span class="p">:</span><span class="w"> </span><span class="n">uuid</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">""</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">tuamify_User</span><span class="p">(</span><span class="n">where</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">restaurant_id</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">_eq</span><span class="p">:</span><span class="w"> </span><span class="nv">$_eq</span><span class="p">}})</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">restaurant_id</span><span class="w">
+    </span><span class="n">phone_number</span><span class="w">
+    </span><span class="n">name</span><span class="w">
+    </span><span class="n">id</span><span class="w">
+    </span><span class="n">is_admin</span><span class="w">
+    </span><span class="n">email</span><span class="w">
+    </span><span class="n">created_at</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Returns a list of users belonging to the restaurant with given id.</p>
 
-<p>The Kittn API uses the following error codes:</p>
+<aside class="notice">
+  Select permissions apply.
+</aside>
+<h2 id='return-user-by-id'>Return user by Id</h2><div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">query</span><span class="w"> </span><span class="n">getUserById</span><span class="p">(</span><span class="nv">$id</span><span class="p">:</span><span class="w"> </span><span class="n">uuid</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">""</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">tuamify_User_by_pk</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="nv">$id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">created_at</span><span class="w">
+    </span><span class="n">email</span><span class="w">
+    </span><span class="n">restaurant_id</span><span class="w">
+    </span><span class="n">phone_number</span><span class="w">
+    </span><span class="n">name</span><span class="w">
+    </span><span class="n">is_admin</span><span class="w">
+    </span><span class="n">id</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Returns a user object with given id.</p>
 
+<aside class="notice">
+  Select permissions apply.
+</aside>
+<h1 id='address'>Address</h1>
+<aside class="notice">
+  Please view <a href="https://www.notion.so/tuamify/Address-6a03a692dd67427787a8d3dded69bd1a" target="_blank">Address model</a> in data dictionary.
+</aside>
+<h2 id='permissions-2'>Permissions</h2>
 <table><thead>
 <tr>
-<th>Error Code</th>
-<th>Meaning</th>
+<th>Role</th>
+<th>insert</th>
+<th>select</th>
+<th>update</th>
+<th>delete</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
+<td>admin</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
 </tr>
 <tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
+<td>owner</td>
+<td>No</td>
+<td>Only addresses of the users belonging to same restaurant</td>
+<td>Can only update <code>name</code>, <code>longitude</code>, <code>latitude</code> and <code>street_address</code> columns of addresses of the users belonging to same restaurant</td>
+<td>No</td>
 </tr>
 <tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
+<td>user</td>
+<td>No</td>
+<td>Only addresses belonging to own user record</td>
+<td>Can only update <code>name</code>, <code>default</code>, <code>longitude</code>, <code>latitude</code> and <code>street_address</code> columns of addresses belonging to own user record</td>
+<td>Only addresses belonging to own user record</td>
 </tr>
 <tr>
-<td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+<td>anon</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
 </tr>
 </tbody></table>
+<h2 id='create-an-address'>Create an address</h2><div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">insertAddressOne</span><span class="p">(</span><span class="nv">$set</span><span class="p">:</span><span class="w"> </span><span class="n">tuamify_Address_insert_input</span><span class="p">!)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">insert_tuamify_Address_one</span><span class="p">(</span><span class="n">object</span><span class="p">:</span><span class="w"> </span><span class="nv">$set</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">default</span><span class="w">
+    </span><span class="n">id</span><span class="w">
+    </span><span class="n">latitude</span><span class="w">
+    </span><span class="n">longitude</span><span class="w">
+    </span><span class="n">name</span><span class="w">
+    </span><span class="n">street_address</span><span class="w">
+    </span><span class="n">user_id</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Creates a new address. Please view data dictionary to see required fields.</p>
 
+<aside class="notice">Insert permissions apply.</aside>
+<h2 id='update-an-address'>Update an address</h2><h2 id='delete-an-address'>Delete an address</h2><div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">mutation</span><span class="w"> </span><span class="n">deleteAddressById</span><span class="p">(</span><span class="nv">$id</span><span class="p">:</span><span class="w"> </span><span class="n">uuid</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">""</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">delete_tuamify_Address_by_pk</span><span class="p">(</span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="nv">$id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">default</span><span class="w">
+    </span><span class="n">id</span><span class="w">
+    </span><span class="n">latitude</span><span class="w">
+    </span><span class="n">longitude</span><span class="w">
+    </span><span class="n">name</span><span class="w">
+    </span><span class="n">user_id</span><span class="w">
+    </span><span class="n">street_address</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Deletes an address with given id.</p>
+
+<aside class="notice">Delete permissions apply</aside>
+<h2 id='get-address-by-user-id'>Get address by user id</h2><div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">query</span><span class="w"> </span><span class="n">getAddressByUserId</span><span class="p">(</span><span class="nv">$user_id</span><span class="p">:</span><span class="w"> </span><span class="n">uuid</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">""</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">tuamify_Address</span><span class="p">(</span><span class="n">where</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">user_id</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">_eq</span><span class="p">:</span><span class="w"> </span><span class="nv">$user_id</span><span class="p">}})</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">default</span><span class="w">
+    </span><span class="n">latitude</span><span class="w">
+    </span><span class="n">id</span><span class="w">
+    </span><span class="n">longitude</span><span class="w">
+    </span><span class="n">name</span><span class="w">
+    </span><span class="n">street_address</span><span class="w">
+    </span><span class="n">user_id</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Returns a list of addresses belonging to user with given id.</p>
+
+<aside class="notice">Select permissions apply</aside>
+<h1 id='menu-category'>Menu Category</h1>
+<aside class="notice">
+  Please view <a href="https://www.notion.so/tuamify/MenuCategory-e1aac987a24044cfa08ca9892ba3b8fa" target="_blank">Menu Category model</a> in data dictionary.
+</aside>
+<h2 id='permissions-3'>Permissions</h2>
+<table><thead>
+<tr>
+<th>Role</th>
+<th>insert</th>
+<th>select</th>
+<th>update</th>
+<th>delete</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>admin</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>owner</td>
+<td>Can only insert <code>name</code> column</td>
+<td>Only menu categories belonging to same restaurant</td>
+<td>Can only update <code>name</code> column of menu categories belonging to same restaurant</td>
+<td>Only menu categories belonging to same restaurant</td>
+</tr>
+<tr>
+<td>user</td>
+<td>No</td>
+<td>Only menu categories belonging to same restaurant</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>anon</td>
+<td>No</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody></table>
+<h2 id='create-a-menu-category'>Create a menu category</h2><h2 id='update-a-menu-category'>Update a menu category</h2><h2 id='delete-a-menu-category'>Delete a menu category</h2><h2 id='subscribe-to-whole-menu-by-restaurant-id'>Subscribe to whole menu by restaurant id</h2><div class="highlight"><pre class="highlight graphql tab-graphql"><code><span class="k">subscription</span><span class="w"> </span><span class="n">subscribeMenuByRestaurantId</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">tuamify_MenuCategory</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">id</span><span class="w">
+    </span><span class="n">name</span><span class="w">
+    </span><span class="n">MenuItems</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">price</span><span class="w">
+      </span><span class="n">photo</span><span class="w">
+      </span><span class="n">name</span><span class="w">
+      </span><span class="n">menu_category_id</span><span class="w">
+      </span><span class="n">id</span><span class="w">
+      </span><span class="n">description</span><span class="w">
+      </span><span class="n">MenuItemVariationGroups</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">required</span><span class="w">
+        </span><span class="n">menu_item_id</span><span class="w">
+        </span><span class="n">name</span><span class="w">
+        </span><span class="n">allow_multiple_selection</span><span class="w">
+        </span><span class="n">id</span><span class="w">
+        </span><span class="n">MenuItemVariations</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="n">price</span><span class="w">
+          </span><span class="n">name</span><span class="w">
+          </span><span class="n">menu_item_variation_group_id</span><span class="w">
+          </span><span class="n">id</span><span class="w">
+          </span><span class="n">description</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="n">restaurant_id</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Returns a list of menu categories belonging to restaurant with given id. Each menu category has nested menu items. Each
+menu item has nested menu item variation groups. Each menu item variation group has nested menu item variations.</p>
+
+<aside class="notice">Select permissions apply.</aside>
+<h1 id='menu-item'>Menu Item</h1><h2 id='permissions-4'>Permissions</h2><h2 id='create-a-menu-item'>Create a menu item</h2><h2 id='update-a-menu-item'>Update a menu item</h2><h2 id='delete-a-menu-item'>Delete a menu item</h2><h1 id='menu-item-variation-group'>Menu Item Variation Group</h1><h2 id='permissions-5'>Permissions</h2><h2 id='create-a-menu-item-variation-group'>Create a menu item variation group</h2><h2 id='update-a-menu-item-variation-group'>Update a menu item variation group</h2><h2 id='delete-a-menu-item-variation-group'>Delete a menu item variation group</h2><h1 id='menu-item-variation'>Menu Item Variation</h1><h2 id='permissions-6'>Permissions</h2><h2 id='create-a-menu-item-variation'>Create a menu item variation</h2><h2 id='update-a-menu-item-variation'>Update a menu item variation</h2><h2 id='delete-a-menu-item-variation'>Delete a menu item variation</h2><h1 id='cart'>Cart</h1><h2 id='permissions-7'>Permissions</h2><h2 id='subscribe-to-active-cart-by-user'>Subscribe to active cart by user</h2><h2 id='create-a-cart'>Create a cart</h2><h2 id='update-a-cart'>Update a cart</h2><h2 id='delete-a-cart'>Delete a cart</h2><h1 id='cart-menu-item'>Cart Menu Item</h1><h2 id='permissions-8'>Permissions</h2><h2 id='create-a-cart-menu-item'>Create a cart menu item</h2><h2 id='update-a-cart-menu-item'>Update a cart menu item</h2><h2 id='delete-a-cart-menu-item'>Delete a cart menu item</h2><h1 id='cart-menu-item-variation'>Cart Menu Item Variation</h1><h2 id='permissions-9'>Permissions</h2><h2 id='create-a-cart-menu-item-variation'>Create a cart menu item variation</h2><h2 id='update-a-cart-menu-item-variation'>Update a cart menu item variation</h2><h2 id='delete-a-cart-menu-item-variation'>Delete a cart menu item variation</h2><h1 id='order'>Order</h1><h2 id='permissions-10'>Permissions</h2><h2 id='create-an-order'>Create an order</h2><h2 id='update-an-order'>Update an order</h2><h2 id='get-orders-by-user'>Get orders by user</h2><h2 id='get-orders-by-restaurant'>Get orders by restaurant</h2>
+  </div>
+  <div class="dark-box">
+      <div class="lang-selector">
+            <a href="#" data-language-name="graphql">graphql</a>
       </div>
-      <div class="dark-box">
-          <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
-          </div>
-      </div>
-    </div>
-  </body>
+  </div>
+</div>
+</body>
 </html>
